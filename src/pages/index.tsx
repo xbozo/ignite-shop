@@ -8,6 +8,7 @@ import { GetStaticProps } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 
+import Head from 'next/head'
 import * as C from '../styles/pages/home'
 
 
@@ -30,23 +31,30 @@ export default function Home({ products }: HomeProps) {
   })
 
   return (
-    <C.HomeContainer ref={sliderRef} className="keen-slider">
-      {products.map(product => {
-        return (
-          <Link key={product.id} href={`/product/${product.id}`}>
-            <C.Product className="keen-slider__slide">
-              <Image src={product.imageUrl} width={520} height={480} alt="" />
+    <>
+      <Head>
+        <title>Ignite Shop</title>
+      </Head>
 
-              <footer>
-                <strong>{product.name}</strong>
-                <span>{product.price}</span>
-              </footer>
-            </C.Product>
-          </Link>
+      <C.HomeContainer ref={sliderRef} className="keen-slider">
+        {products.map(product => {
+          return (
+            <Link key={product.id} href={`/product/${product.id}`}>
+              <C.Product className="keen-slider__slide">
+                <Image src={product.imageUrl} width={520} height={480} alt="" />
 
-        )
-      })}
-    </C.HomeContainer>
+                <footer>
+                  <strong>{product.name}</strong>
+                  <span>{product.price}</span>
+                </footer>
+              </C.Product>
+            </Link>
+
+          )
+        })}
+      </C.HomeContainer>
+    </>
+   
   )
 }
 
